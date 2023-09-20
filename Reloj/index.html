@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@500&display=swap');
+	</style>
+	<script src="main.js"></script>
+	<link rel="stylesheet" href="estilos.css">
+
+
+
+	<script src="notes.js"></script>
+
+	<audio id="alarmAudio" src="./recursos/gallo.mp3" preload="auto"></audio>
+	<audio id="alarmAudio" src="./recursos/evacuacion.mp3" preload="auto"></audio>
+	<audio id="alarmAudio" src="./recursos/paisaje.mp3" preload="auto"></audio>
+	<audio id="alarmAudio" src="./recursos/relojviejo.mp3" preload="auto"></audio>
+
+	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+	  <!-- Bootstrap CSS File -->
+	  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<script src="https://kit.fontawesome.com/43a1bbf0a6.js" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="./vendors/themify-icons/css/themify-icons.css">
+	<link rel="stylesheet" href="https://unpkg.com/ionicons@6.1.0/dist/css/ionicons.min.css">
+
+	<title>Reloj Legoxiano</title>
+
+</head>
+
+<body onload="startTime()">
+
+
+	<button id="temasBtn" class="button glow-on-hover">Temas</button>
+	<button id="alarmasBtn" class="button glow-on-hover">Alarmas</button>
+ 	<!-- Botón para abrir el modal -->
+	<button id="openModalTodo" class="button glow-on-hover">To-do list</button>
+
+
+
+
+
+
+	<div id="temasContainer" style="display:none;">
+	  <div class="temaItem" data-fondo="./recursos/fondoazul.jpg" data-leyenda="Azul">
+		<div class="leyenda">Azul</div>
+		<img class="tema" src="./recursos/fondoazul.jpg" alt="Fondo Azul">
+
+	  </div>	  
+	  <div class="temaItem" data-fondo="./recursos/fondovioleta.jpg" data-leyenda="Violeta">
+		<div class="leyenda">Violeta</div>
+		<img class="tema" src="./recursos/fondovioleta.jpg" alt="Fondo Violeta">
+
+	  </div>
+	  <div class="temaItem" data-fondo="./recursos/fondoverde.jpg" data-leyenda="Verde">
+		<div class="leyenda">Verde</div>
+		<img class="tema" src="./recursos/fondoverde.jpg" alt="Fondo Verde">
+
+	  </div>
+
+	  <div class="temaItem" data-fondo="./recursos/fondonegro.jpg" data-leyenda="Negro">
+		<div class="leyenda">Negro</div>
+		<img class="tema" src="./recursos/fondonegro.jpg" alt="Fondo Negro">
+
+	  </div>
+	  <div class="temaItem" data-fondo="./recursos/fondorojo.jpg" data-leyenda="Rojo">
+		<div class="leyenda">Rojo</div>
+		<img class="tema" src="./recursos/fondorojo.jpg" alt="Fondo Rojo">
+
+	  </div>
+
+	  <div class="temaItem" data-fondo="./recursos/fondoblanco.jpg" data-leyenda="Blanco">
+		<div class="leyenda">Blanco</div>
+		<img class="tema" src="./recursos/fondoblanco.jpg" alt="Fondo Blanco">
+
+	  </div>
+
+	  <div class="temaItem" data-fondo="./recursos/fondocyrex.jpg" data-leyenda="Cyrex">
+		<div class="leyenda">Cyrex</div>
+		<img class="tema" src="./recursos/fondocyrex.jpg" alt="Fondo Cyrex">
+
+	  </div>
+
+	</div>
+
+
+
+	
+
+	<div class="container-fluid">
+		<div class="row tempcent">
+
+			<div class="col-lg-12 col-md-12 col-sm-12">
+
+				<div id="ww_04f2687b803ae" v='1.3' loc='id' a='{"t":"horizontal","lang":"es","sl_lpl":1,"ids":["wl893"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Más previsiones: <a href="https://sharpweather.com/weather_buenos_aires/week/" id="ww_04f2687b803ae_u" target="_blank">BA weather this week</a></div><script async src="https://app2.weatherwidget.org/js/?id=ww_04f2687b803ae"></script>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div id="clockdate">
+		<div class="clockdate-wrapper">
+			<div id="clock"></div>
+			<div id="date"></div>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<button id="verAlarma">CONFIGURAR ALARMA</button>
+		<button id="verAlarmas">VER ALARMAS</button>
+		<button id="limpiarAlarma" class="custom-button">APAGAR ALARMA</button>
+	</div>
+
+
+
+
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h2>Configurar alarma (24horas)</h2>
+
+			<label for="dia">Día:</label>
+				<select id="dia">
+				<option value="0">Domingo</option>
+				<option value="1">Lunes</option>
+				<option value="2">Martes</option>
+				<option value="3">Miércoles</option>
+				<option value="4">Jueves</option>
+				<option value="5">Viernes</option>
+				<option value="6">Sábado</option>
+				</select>
+
+			<label for="hora">Hora:</label>
+			<input type="number" id="hora" min="0" max="23" placeholder="0">
+			<label for="minuto">Minuto:</label>
+			<input type="number" id="minuto" min="0" max="59" placeholder="0">
+			<button id="setSound"><ion-icon name="musical-notes"></ion-icon></button>
+			<button id="configurarAlarma">Iniciar</button>
+
+
+		</div>
+	</div>
+
+	<div id="soundModal" class="modal">
+		<div class="modal-content">
+		  <span class="closeSoundModal">&times;</span>
+		  <h2>Seleccionar Sonido</h2>
+		  <button class="selectSound" data-src="./recursos/gallo.mp3"><i class="fa-regular fa-bell"></i> Gallo</button>
+		  <button class="selectSound" data-src="./recursos/evacuacion.mp3"><i class="fa-solid fa-dumpster-fire"></i> Evacuacion</button>
+		  <button class="selectSound" data-src="./recursos/paisaje.mp3"><i class="fa-solid fa-dove"></i> Paisaje</button>
+		  <button class="selectSound" data-src="./recursos/relojviejo.mp3"><i class="fa-regular fa-clock"></i> Reloj viejo</button>
+		</div>
+	  </div>
+	  
+	  <div id="modalConfigurada" class="modalConfigurada">
+		<div class="modal-content-configurada">
+			<span class="close-configurada">&times;</span>
+			<p>Alarma programada a las <span id="horaConfigurada"></span></p>
+			<button id="cerrarModal">OK</button>
+		</div>
+	</div>
+	
+	<div id="listaAlarmasModal" class="modal">
+		<div class="modal-content">
+		  <span class="close" id="cerrarListaModal">&times;</span>
+		  <h2>Lista de Alarmas</h2>
+		  <ul id="listaAlarmas"></ul>
+		</div>
+	  </div>
+
+
+
+
+
+
+  <!-- Define el modal de la lista de tareas con ID y clase específicos -->
+  <div id="modalTodoList" class="modal-todo-list">
+    <div class="modal-content">
+      <!-- Botón para cerrar el modal -->
+      <span id="closeModal" class="close">&times;</span>
+
+      <!-- Contenido de la modal -->
+      <div class="modal-todolist" id="modal-todolist">
+        <h1 class="title">To-do List</h1>
+
+        <div class="box addItem">
+          <input id="js-input" class="modal-listElement" name="add-item" placeholder="Agregar Tarea" />
+          <button id="js-add" class="glow-on-hover" for="add-item">+</button>
+        </div>
+
+        <div class="box">
+          <div class="modal-subtitle">Tareas por hacer:</div>
+          <ul id="js-list-todo" class="list list-todo"></ul>
+        </div>
+
+        <div class="box">
+          <div class="modal-subtitle">Tareas realizadas:</div>
+          <ul id="js-list-done" class="list list--done"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+  <!-- start section footer -->
+  <div id="footer" class="text-center footersito">
+    <div class="container-foo">
+
+      <p class="infos">&copy;
+        <script>document.write(new Date().getFullYear())</script> All rights reserved.
+      </p>
+
+      <div class="credits">
+
+        Diseñado con <i class="fa-regular fa-heart"></i></i> by <a href="https://www.linkedin.com/in/lautarodiaz95/"
+          target="_blank" class="legox">Legox</a>
+      </div>
+
+    </div>
+  </div>
+  <!-- End section footer -->
+
+</body>
+
+<script src="alarma.js"></script>
+<script src="script.js"></script>
+<script src="theme.js"></script>
+
+</html>
